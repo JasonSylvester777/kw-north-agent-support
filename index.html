@@ -24,7 +24,9 @@
     }
 
     * { box-sizing: border-box; }
+
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
@@ -63,7 +65,7 @@
       height: 380px;
       right: -120px;
       top: -120px;
-      background: radial-gradient(circle, rgba(211,47,47,0.18) 0%, rgba(211,47,47,0) 70%);
+      background: radial-gradient(circle, rgba(211, 47, 47, 0.18) 0%, rgba(211, 47, 47, 0) 70%);
     }
 
     .hero::after {
@@ -71,7 +73,7 @@
       height: 320px;
       left: -120px;
       top: 40px;
-      background: radial-gradient(circle, rgba(17,17,17,0.1) 0%, rgba(17,17,17,0) 70%);
+      background: radial-gradient(circle, rgba(17, 17, 17, 0.1) 0%, rgba(17, 17, 17, 0) 70%);
     }
 
     .hero-grid {
@@ -118,50 +120,29 @@
       color: var(--gray-600);
     }
 
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
     .logo-block {
       margin-top: 24px;
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
+      padding: 14px 18px;
       border: 1px solid var(--gray-200);
       border-radius: 18px;
       background: var(--white);
       box-shadow: var(--shadow-sm);
     }
 
-    .logo-box {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+    .logo-image {
+      display: block;
+      height: 70px;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .hero-actions {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--red);
-      color: var(--white);
-      font-weight: 700;
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-
-    .logo-text strong {
-      display: block;
-      font-size: 14px;
-      color: var(--black);
-    }
-
-    .logo-text span {
-      display: block;
-      font-size: 12px;
-      color: var(--gray-600);
-      margin-top: 2px;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 30px;
     }
 
     .btn {
@@ -181,7 +162,9 @@
       color: var(--white);
     }
 
-    .btn-primary:hover { background: var(--red-dark); }
+    .btn-primary:hover {
+      background: var(--red-dark);
+    }
 
     .btn-secondary {
       background: var(--white);
@@ -189,10 +172,12 @@
       border: 1px solid var(--gray-300);
     }
 
-    .btn-secondary:hover { background: var(--gray-50); }
+    .btn-secondary:hover {
+      background: var(--gray-50);
+    }
 
     .hero-panel {
-      background: rgba(255,255,255,0.96);
+      background: rgba(255, 255, 255, 0.96);
       border: 1px solid var(--gray-200);
       border-radius: 32px;
       padding: 24px;
@@ -236,8 +221,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
       flex-shrink: 0;
     }
 
@@ -251,8 +236,8 @@
     .support-box {
       border-radius: 18px;
       padding: 16px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .support-box strong {
@@ -270,8 +255,8 @@
       margin-top: 14px;
       border-radius: 18px;
       padding: 16px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .contact-box strong {
@@ -286,7 +271,9 @@
       color: #e5e7eb;
     }
 
-    main { padding: 56px 0 80px; }
+    main {
+      padding: 56px 0 80px;
+    }
 
     .section-header {
       max-width: 800px;
@@ -487,7 +474,9 @@
       color: var(--gray-950);
     }
 
-    .btn-light:hover { background: var(--gray-100); }
+    .btn-light:hover {
+      background: var(--gray-100);
+    }
 
     footer {
       border-top: 1px solid var(--gray-200);
@@ -511,7 +500,9 @@
       font-size: 14px;
     }
 
-    .footer-note strong { color: var(--black); }
+    .footer-note strong {
+      color: var(--black);
+    }
 
     svg {
       width: 24px;
@@ -550,13 +541,38 @@
         grid-template-columns: 1fr;
       }
 
-      h1 { font-size: 38px; }
-      .section-header h2 { font-size: 34px; }
-      .hero-subtitle { font-size: 20px; }
-      .hero-grid { padding: 52px 0; }
-      .it-section { padding: 24px; }
-      .hero-panel-inner, .it-panel { padding: 24px; }
-      .container { padding: 0 18px; }
+      h1 {
+        font-size: 38px;
+      }
+
+      .section-header h2 {
+        font-size: 34px;
+      }
+
+      .hero-subtitle {
+        font-size: 20px;
+      }
+
+      .hero-grid {
+        padding: 52px 0;
+      }
+
+      .it-section {
+        padding: 24px;
+      }
+
+      .hero-panel-inner,
+      .it-panel {
+        padding: 24px;
+      }
+
+      .container {
+        padding: 0 18px;
+      }
+
+      .logo-image {
+        height: 56px;
+      }
     }
   </style>
 </head>
@@ -571,11 +587,11 @@
           <p class="hero-text">Welcome to the KW North support page. This hub is designed to help agents quickly book support sessions or log technical issues for follow-up.</p>
 
           <div class="logo-block">
-            <div class="logo-box">KW</div>
-            <div class="logo-text">
-              <strong>KW North Support</strong>
-              <span>Logo placeholder for KW North branding</span>
-            </div>
+            <img
+              src="KW_LOGO-removebg-preview.png"
+              alt="KW North Keller Williams Realty"
+              class="logo-image"
+            />
           </div>
 
           <div class="hero-actions">
