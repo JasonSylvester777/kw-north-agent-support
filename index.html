@@ -4,6 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KW North Agent Support</title>
+  <script>
+    function openTicketPopup() {
+      document.getElementById('ticketModal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeTicketPopup() {
+      document.getElementById('ticketModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    window.addEventListener('click', function (event) {
+      var modal = document.getElementById('ticketModal');
+      if (event.target === modal) {
+        closeTicketPopup();
+      }
+    });
+  </script>
   <style>
     :root {
       --red: #d32f2f;
@@ -24,7 +42,6 @@
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -155,6 +172,7 @@
       font-weight: 700;
       transition: 0.2s ease;
       cursor: pointer;
+      border: none;
     }
 
     .btn-primary {
@@ -174,6 +192,16 @@
 
     .btn-secondary:hover {
       background: var(--gray-50);
+    }
+
+    .btn-light {
+      width: 100%;
+      background: var(--white);
+      color: var(--gray-950);
+    }
+
+    .btn-light:hover {
+      background: var(--gray-100);
     }
 
     .hero-panel {
@@ -413,8 +441,11 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .it-intro {
-      margin-bottom: 28px;
+    .it-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      align-items: center;
     }
 
     .issue-list {
@@ -434,40 +465,35 @@
       font-weight: 700;
     }
 
-    .form-shell {
-      margin-top: 28px;
-      border: 1px solid var(--gray-200);
+    .it-panel {
       border-radius: 28px;
-      overflow: hidden;
-      background: var(--white);
-      box-shadow: var(--shadow-sm);
+      background: var(--gray-950);
+      color: var(--white);
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
     }
 
-    .form-shell-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--gray-200);
-      background: linear-gradient(135deg, #111827 0%, #1f2937 55%, #b91c1c 100%);
+    .it-panel .warning-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .it-panel h3 {
+      margin: 24px 0 10px;
+      font-size: 30px;
+      line-height: 1.15;
       color: var(--white);
     }
 
-    .form-shell-header h3 {
-      margin: 0 0 6px;
-      font-size: 26px;
-      line-height: 1.15;
-    }
-
-    .form-shell-header p {
-      margin: 0;
-      color: #e5e7eb;
-      font-size: 14px;
-    }
-
-    .form-embed {
-      width: 100%;
-      min-height: 2201px;
-      border: 0;
-      display: block;
-      background: var(--white);
+    .it-panel p {
+      margin: 0 0 24px;
+      color: #d1d5db;
+      font-size: 15px;
     }
 
     footer {
@@ -496,6 +522,83 @@
       color: var(--black);
     }
 
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 24, 39, 0.72);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 920px;
+      height: 88vh;
+      background: var(--white);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(15, 23, 42, 0.28);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      background: linear-gradient(135deg, #111827 0%, #1f2937 55%, #b91c1c 100%);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .modal-header p {
+      margin: 6px 0 0;
+      color: #e5e7eb;
+      font-size: 14px;
+    }
+
+    .modal-close {
+      border: 0;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-body {
+      background: var(--white);
+      overflow: auto;
+      flex: 1;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-embed {
+      width: 100%;
+      min-height: 2201px;
+      border: 0;
+      display: block;
+      background: var(--white);
+    }
+
     svg {
       width: 24px;
       height: 24px;
@@ -508,6 +611,7 @@
 
     @media (max-width: 1100px) {
       .hero-grid,
+      .it-grid,
       .footer-grid {
         grid-template-columns: 1fr;
       }
@@ -523,6 +627,7 @@
 
     @media (max-width: 800px) {
       .hero-grid,
+      .it-grid,
       .cards-grid.online,
       .cards-grid.inperson,
       .issue-list,
@@ -551,7 +656,8 @@
         padding: 24px;
       }
 
-      .hero-panel-inner {
+      .hero-panel-inner,
+      .it-panel {
         padding: 24px;
       }
 
@@ -563,11 +669,21 @@
         height: 56px;
       }
 
-      .form-shell-header {
-        padding: 18px 18px;
+      .modal-content {
+        height: 92vh;
+        border-radius: 22px;
       }
 
-      .form-embed {
+      .modal-header {
+        padding: 16px 16px;
+        align-items: flex-start;
+      }
+
+      .modal-header h3 {
+        font-size: 20px;
+      }
+
+      .modal-embed {
         min-height: 2300px;
       }
     }
@@ -759,38 +875,36 @@
       </section>
 
       <section id="it-issue" class="it-section">
-        <div class="section-header it-intro" style="max-width: 100%;">
-          <p class="section-label">Section 2</p>
-          <h2>Submit an IT Issue</h2>
-          <p>Use this section to report technical issues that need to be logged and tracked for follow-up. Agents can complete the IT ticket directly on this page without needing to leave the support hub.</p>
-        </div>
+        <div class="it-grid">
+          <div>
+            <div class="section-header" style="margin-bottom: 0; max-width: 100%;">
+              <p class="section-label">Section 2</p>
+              <h2>Submit an IT Issue</h2>
+              <p>Use this option to report technical issues that need to be logged and tracked for follow-up. The ticket form opens in a clean popup so the support hub stays easy to use.</p>
+            </div>
 
-        <div class="issue-list">
-          <div class="issue-item">Login or access problems</div>
-          <div class="issue-item">MAPP issues</div>
-          <div class="issue-item">Listing feed errors</div>
-          <div class="issue-item">Google issues</div>
-          <div class="issue-item">Website errors</div>
-          <div class="issue-item">System-related support issues</div>
-        </div>
-
-        <div class="form-shell">
-          <div class="form-shell-header">
-            <h3>Log Your IT Ticket</h3>
-            <p>Please complete the form below so the issue can be recorded, monitored, and followed up properly.</p>
+            <div class="issue-list">
+              <div class="issue-item">Login or access problems</div>
+              <div class="issue-item">MAPP issues</div>
+              <div class="issue-item">Listing feed errors</div>
+              <div class="issue-item">Google issues</div>
+              <div class="issue-item">Website errors</div>
+              <div class="issue-item">System-related support issues</div>
+            </div>
           </div>
 
-          <iframe
-            class="form-embed"
-            src="https://docs.google.com/forms/d/e/1FAIpQLSf9TPHXvdwn5oKd6ukkEpnuc_iqdwvCwzkEtV_NyRYRPPnaxA/viewform?embedded=true"
-            width="640"
-            height="2201"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0"
-          >
-            Loading…
-          </iframe>
+          <div class="it-panel">
+            <div class="warning-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 9v4"></path>
+                <path d="M12 17h.01"></path>
+                <path d="M10.3 3.84 2.62 17a2 2 0 0 0 1.73 3h15.3a2 2 0 0 0 1.73-3L13.7 3.84a2 2 0 0 0-3.4 0Z"></path>
+              </svg>
+            </div>
+            <h3>Need something tracked?</h3>
+            <p>Log the issue through the IT form so it can be recorded, monitored, and followed up properly.</p>
+            <button class="btn btn-light" type="button" onclick="openTicketPopup()">Log IT Issue</button>
+          </div>
         </div>
       </section>
     </div>
@@ -800,7 +914,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-note">
-          <strong>Support note:</strong> Use booking for live support sessions and the embedded IT form for issues that need to be tracked and followed up.
+          <strong>Support note:</strong> Use booking for live support sessions and the popup IT form for issues that need to be tracked and followed up.
         </div>
         <div class="footer-note">
           <strong>Support hours</strong><br />
@@ -810,5 +924,31 @@
       </div>
     </div>
   </footer>
+
+  <div class="modal-overlay" id="ticketModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h3>Log Your IT Ticket</h3>
+          <p>Please complete the form below so the issue can be recorded, monitored, and followed up properly.</p>
+        </div>
+        <button class="modal-close" type="button" onclick="closeTicketPopup()">Close</button>
+      </div>
+
+      <div class="modal-body">
+        <iframe
+          class="modal-embed"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSf9TPHXvdwn5oKd6ukkEpnuc_iqdwvCwzkEtV_NyRYRPPnaxA/viewform?embedded=true"
+          width="640"
+          height="2201"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+        >
+          Loading…
+        </iframe>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
