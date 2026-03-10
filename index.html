@@ -413,11 +413,8 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .it-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 32px;
-      align-items: center;
+    .it-intro {
+      margin-bottom: 28px;
     }
 
     .issue-list {
@@ -437,45 +434,40 @@
       font-weight: 700;
     }
 
-    .it-panel {
+    .form-shell {
+      margin-top: 28px;
+      border: 1px solid var(--gray-200);
       border-radius: 28px;
-      background: var(--gray-950);
-      color: var(--white);
-      padding: 32px;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .it-panel .warning-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
-      background: var(--red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .it-panel h3 {
-      margin: 24px 0 10px;
-      font-size: 30px;
-      line-height: 1.15;
-      color: var(--white);
-    }
-
-    .it-panel p {
-      margin: 0 0 24px;
-      color: #d1d5db;
-      font-size: 15px;
-    }
-
-    .btn-light {
-      width: 100%;
+      overflow: hidden;
       background: var(--white);
-      color: var(--gray-950);
+      box-shadow: var(--shadow-sm);
     }
 
-    .btn-light:hover {
-      background: var(--gray-100);
+    .form-shell-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--gray-200);
+      background: linear-gradient(135deg, #111827 0%, #1f2937 55%, #b91c1c 100%);
+      color: var(--white);
+    }
+
+    .form-shell-header h3 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      line-height: 1.15;
+    }
+
+    .form-shell-header p {
+      margin: 0;
+      color: #e5e7eb;
+      font-size: 14px;
+    }
+
+    .form-embed {
+      width: 100%;
+      min-height: 2201px;
+      border: 0;
+      display: block;
+      background: var(--white);
     }
 
     footer {
@@ -516,7 +508,6 @@
 
     @media (max-width: 1100px) {
       .hero-grid,
-      .it-grid,
       .footer-grid {
         grid-template-columns: 1fr;
       }
@@ -532,7 +523,6 @@
 
     @media (max-width: 800px) {
       .hero-grid,
-      .it-grid,
       .cards-grid.online,
       .cards-grid.inperson,
       .issue-list,
@@ -561,8 +551,7 @@
         padding: 24px;
       }
 
-      .hero-panel-inner,
-      .it-panel {
+      .hero-panel-inner {
         padding: 24px;
       }
 
@@ -572,6 +561,14 @@
 
       .logo-image {
         height: 56px;
+      }
+
+      .form-shell-header {
+        padding: 18px 18px;
+      }
+
+      .form-embed {
+        min-height: 2300px;
       }
     }
   </style>
@@ -762,36 +759,38 @@
       </section>
 
       <section id="it-issue" class="it-section">
-        <div class="it-grid">
-          <div>
-            <div class="section-header" style="margin-bottom: 0; max-width: 100%;">
-              <p class="section-label">Section 2</p>
-              <h2>Submit an IT Issue</h2>
-              <p>Use this option to report technical issues that need to be logged and tracked for follow-up.</p>
-            </div>
+        <div class="section-header it-intro" style="max-width: 100%;">
+          <p class="section-label">Section 2</p>
+          <h2>Submit an IT Issue</h2>
+          <p>Use this section to report technical issues that need to be logged and tracked for follow-up. Agents can complete the IT ticket directly on this page without needing to leave the support hub.</p>
+        </div>
 
-            <div class="issue-list">
-              <div class="issue-item">Login or access problems</div>
-              <div class="issue-item">MAPP issues</div>
-              <div class="issue-item">Listing feed errors</div>
-              <div class="issue-item">Google issues</div>
-              <div class="issue-item">Website errors</div>
-              <div class="issue-item">System-related support issues</div>
-            </div>
+        <div class="issue-list">
+          <div class="issue-item">Login or access problems</div>
+          <div class="issue-item">MAPP issues</div>
+          <div class="issue-item">Listing feed errors</div>
+          <div class="issue-item">Google issues</div>
+          <div class="issue-item">Website errors</div>
+          <div class="issue-item">System-related support issues</div>
+        </div>
+
+        <div class="form-shell">
+          <div class="form-shell-header">
+            <h3>Log Your IT Ticket</h3>
+            <p>Please complete the form below so the issue can be recorded, monitored, and followed up properly.</p>
           </div>
 
-          <div class="it-panel">
-            <div class="warning-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 9v4"></path>
-                <path d="M12 17h.01"></path>
-                <path d="M10.3 3.84 2.62 17a2 2 0 0 0 1.73 3h15.3a2 2 0 0 0 1.73-3L13.7 3.84a2 2 0 0 0-3.4 0Z"></path>
-              </svg>
-            </div>
-            <h3>Need something tracked?</h3>
-            <p>Log the issue through the IT form so it can be recorded, monitored, and followed up properly.</p>
-            <a class="btn btn-light" href="https://forms.gle/ap6VyEqSFwruky636" target="_blank" rel="noopener noreferrer">Log IT Issue</a>
-          </div>
+          <iframe
+            class="form-embed"
+            src="https://docs.google.com/forms/d/e/1FAIpQLSf9TPHXvdwn5oKd6ukkEpnuc_iqdwvCwzkEtV_NyRYRPPnaxA/viewform?embedded=true"
+            width="640"
+            height="2201"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+          >
+            Loading…
+          </iframe>
         </div>
       </section>
     </div>
@@ -801,7 +800,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-note">
-          <strong>Support note:</strong> Use booking for live support sessions and the IT form for issues that need to be tracked and followed up.
+          <strong>Support note:</strong> Use booking for live support sessions and the embedded IT form for issues that need to be tracked and followed up.
         </div>
         <div class="footer-note">
           <strong>Support hours</strong><br />
