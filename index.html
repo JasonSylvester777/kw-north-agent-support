@@ -496,7 +496,7 @@
     }
 
     .form-textarea {
-      min-height: 120px;
+      min-height: 160px;
       resize: vertical;
     }
 
@@ -881,9 +881,9 @@
         <div class="issue-list">
           <div class="issue-item">Login or access problems</div>
           <div class="issue-item">MAPP issues</div>
-          <div class="issue-item">Listing feed errors</div>
           <div class="issue-item">Google issues</div>
           <div class="issue-item">Website errors</div>
+          <div class="issue-item">Form or document issues</div>
           <div class="issue-item">System-related support issues</div>
         </div>
 
@@ -908,44 +908,6 @@
 
               <div class="form-row">
                 <div class="form-group">
-                  <label for="contactNumber">Contact Number</label>
-                  <input id="contactNumber" class="form-input" type="tel" placeholder="Enter your contact number" />
-                </div>
-                <div class="form-group">
-                  <label for="preferredContact">Preferred Contact Method</label>
-                  <select id="preferredContact" class="form-select">
-                    <option value="">Select an option</option>
-                    <option>Phone Call</option>
-                    <option>WhatsApp</option>
-                    <option>Email</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="category">Category</label>
-                  <select id="category" class="form-select" required>
-                    <option value="">Select a category</option>
-                    <option>Login / Access Problem</option>
-                    <option>MAPP</option>
-                    <option>KW Command</option>
-                    <option>Google / Gmail / Drive</option>
-                    <option>Listing Feed / Portal Issue</option>
-                    <option>Website / Link Issue</option>
-                    <option>Form / Document Issue</option>
-                    <option>Technical Support Other</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label for="platformSystem">Platform / System</label>
-                  <input id="platformSystem" class="form-input" type="text" placeholder="Example: MAPP, Gmail, KW Command, Website" />
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
                   <label for="urgency">Urgency</label>
                   <select id="urgency" class="form-select" required>
                     <option value="">Select urgency</option>
@@ -957,19 +919,39 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="issueTitle">Short Issue Title</label>
-                  <input id="issueTitle" class="form-input" type="text" placeholder="Brief title for the issue" required />
+                  <label for="category">Category</label>
+                  <select id="category" class="form-select" required>
+                    <option value="">Select a category</option>
+                    <option>Login / Access Problem</option>
+                    <option>MAPP</option>
+                    <option>KW Command</option>
+                    <option>Google / Gmail / Drive</option>
+                    <option>Website / Link Issue</option>
+                    <option>Form / Document Issue</option>
+                    <option>Technical Support Other</option>
+                  </select>
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="tryingToDo">What are you trying to do?</label>
-                <textarea id="tryingToDo" class="form-textarea" placeholder="Explain what you were trying to do when the issue happened" required></textarea>
+                <label for="issueTitle">Short Issue Title</label>
+                <input id="issueTitle" class="form-input" type="text" placeholder="Brief title for the issue" required />
               </div>
 
               <div class="form-group">
-                <label for="alreadyTried">What have you already tried?</label>
-                <textarea id="alreadyTried" class="form-textarea" placeholder="Tell us what steps you already tried before submitting the ticket"></textarea>
+                <label for="tryingToDo">What are you trying to do?</label>
+                <textarea id="tryingToDo" class="form-textarea" placeholder="Please explain the issue in full, what you were trying to do, and what happened" required></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="issueStarted">When did the issue start?</label>
+                  <input id="issueStarted" class="form-input" type="text" placeholder="Example: Today at 08:30 or since yesterday" />
+                </div>
+                <div class="form-group">
+                  <label for="issueImpact">Overall impact</label>
+                  <input id="issueImpact" class="form-input" type="text" placeholder="Example: 5 or High impact" />
+                </div>
               </div>
 
               <div class="form-group">
@@ -1085,14 +1067,12 @@
         const payload = {
           agentName: document.getElementById('agentName').value.trim(),
           agentEmail: document.getElementById('agentEmail').value.trim(),
-          contactNumber: document.getElementById('contactNumber').value.trim(),
-          preferredContact: document.getElementById('preferredContact').value,
-          category: document.getElementById('category').value,
-          platformSystem: document.getElementById('platformSystem').value.trim(),
           urgency: document.getElementById('urgency').value,
+          category: document.getElementById('category').value,
           issueTitle: document.getElementById('issueTitle').value.trim(),
           tryingToDo: document.getElementById('tryingToDo').value.trim(),
-          alreadyTried: document.getElementById('alreadyTried').value.trim(),
+          issueStarted: document.getElementById('issueStarted').value.trim(),
+          issueImpact: document.getElementById('issueImpact').value.trim(),
           screenshotBase64: screenshotBase64,
           screenshotFileName: screenshotFileName,
           screenshotMimeType: screenshotMimeType
