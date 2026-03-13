@@ -4,24 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KW North Agent Support</title>
-  <script>
-    function openTicketPopup() {
-      document.getElementById('ticketModal').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeTicketPopup() {
-      document.getElementById('ticketModal').style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-
-    window.addEventListener('click', function (event) {
-      var modal = document.getElementById('ticketModal');
-      if (event.target === modal) {
-        closeTicketPopup();
-      }
-    });
-  </script>
   <style>
     :root {
       --red: #d32f2f;
@@ -36,6 +18,10 @@
       --gray-100: #f3f4f6;
       --gray-50: #f9fafb;
       --white: #ffffff;
+      --green: #047857;
+      --green-bg: #ecfdf5;
+      --red-soft: #fef2f2;
+      --red-border: #fecaca;
       --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.06);
       --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.12);
       --max-width: 1200px;
@@ -53,6 +39,7 @@
     }
 
     a { text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
     .container {
       width: 100%;
@@ -173,6 +160,7 @@
       transition: 0.2s ease;
       cursor: pointer;
       border: none;
+      font-family: inherit;
     }
 
     .btn-primary {
@@ -180,29 +168,7 @@
       color: var(--white);
     }
 
-    .btn-primary:hover {
-      background: var(--red-dark);
-    }
-
-    .btn-secondary {
-      background: var(--white);
-      color: var(--gray-900);
-      border: 1px solid var(--gray-300);
-    }
-
-    .btn-secondary:hover {
-      background: var(--gray-50);
-    }
-
-    .btn-light {
-      width: 100%;
-      background: var(--white);
-      color: var(--gray-950);
-    }
-
-    .btn-light:hover {
-      background: var(--gray-100);
-    }
+    .btn-primary:hover { background: var(--red-dark); }
 
     .hero-panel {
       background: rgba(255, 255, 255, 0.96);
@@ -299,12 +265,10 @@
       color: #e5e7eb;
     }
 
-    main {
-      padding: 56px 0 80px;
-    }
+    main { padding: 56px 0 80px; }
 
     .section-header {
-      max-width: 800px;
+      max-width: 900px;
       margin-bottom: 34px;
     }
 
@@ -441,18 +405,11 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .it-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 32px;
-      align-items: center;
-    }
-
     .issue-list {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
-      margin-top: 24px;
+      margin: 24px 0 30px;
     }
 
     .issue-item {
@@ -463,37 +420,193 @@
       color: var(--gray-700);
       font-size: 14px;
       font-weight: 700;
+      text-align: center;
     }
 
-    .it-panel {
-      border-radius: 28px;
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .form-shell {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 32px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .form-shell-header {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--gray-200);
+      background: linear-gradient(135deg, #111827 0%, #1f2937 55%, #b91c1c 100%);
+      color: var(--white);
+    }
+
+    .form-shell-header h3 {
+      margin: 0 0 6px;
+      font-size: 28px;
+      line-height: 1.15;
+    }
+
+    .form-shell-header p {
+      margin: 0;
+      color: #e5e7eb;
+      font-size: 14px;
+    }
+
+    .ticket-form {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-700);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea,
+    .form-file {
+      width: 100%;
+      border: 1px solid var(--gray-300);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-size: 15px;
+      color: var(--gray-900);
+      background: var(--white);
+      font-family: inherit;
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .helper {
+      color: var(--gray-600);
+      font-size: 13px;
+      margin-top: -2px;
+    }
+
+    .success-box {
+      display: none;
+      border: 1px solid #a7f3d0;
+      background: var(--green-bg);
+      color: var(--green);
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .error-box {
+      display: none;
+      border: 1px solid #fecaca;
+      background: #fef2f2;
+      color: var(--red-dark);
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .submit-row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .submit-note {
+      color: var(--gray-600);
+      font-size: 13px;
+      max-width: 520px;
+    }
+
+    .process-card {
       background: var(--gray-950);
       color: var(--white);
-      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 28px;
       box-shadow: var(--shadow-lg);
     }
 
-    .it-panel .warning-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
-      background: var(--red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .process-card .section-label {
+      color: #fecaca;
     }
 
-    .it-panel h3 {
-      margin: 24px 0 10px;
+    .process-card h3 {
+      margin: 0 0 12px;
       font-size: 30px;
-      line-height: 1.15;
       color: var(--white);
     }
 
-    .it-panel p {
-      margin: 0 0 24px;
+    .process-card p {
       color: #d1d5db;
+      margin: 0 0 18px;
+    }
+
+    .step-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 16px 18px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .step-item strong {
+      display: block;
+      color: var(--white);
       font-size: 15px;
+    }
+
+    .step-item span {
+      display: block;
+      margin-top: 4px;
+      font-size: 13px;
+      color: #d1d5db;
+    }
+
+    .status-badge {
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      background: #fef2f2;
+      color: var(--red);
     }
 
     footer {
@@ -522,83 +635,6 @@
       color: var(--black);
     }
 
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(17, 24, 39, 0.72);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-content {
-      width: 100%;
-      max-width: 920px;
-      height: 88vh;
-      background: var(--white);
-      border-radius: 28px;
-      overflow: hidden;
-      box-shadow: 0 30px 60px rgba(15, 23, 42, 0.28);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .modal-header {
-      padding: 20px 24px;
-      background: linear-gradient(135deg, #111827 0%, #1f2937 55%, #b91c1c 100%);
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-shrink: 0;
-    }
-
-    .modal-header h3 {
-      margin: 0;
-      font-size: 24px;
-      line-height: 1.1;
-    }
-
-    .modal-header p {
-      margin: 6px 0 0;
-      color: #e5e7eb;
-      font-size: 14px;
-    }
-
-    .modal-close {
-      border: 0;
-      background: rgba(255, 255, 255, 0.12);
-      color: var(--white);
-      border-radius: 14px;
-      padding: 10px 14px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .modal-close:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .modal-body {
-      background: var(--white);
-      overflow: auto;
-      flex: 1;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .modal-embed {
-      width: 100%;
-      min-height: 2201px;
-      border: 0;
-      display: block;
-      background: var(--white);
-    }
-
     svg {
       width: 24px;
       height: 24px;
@@ -611,7 +647,7 @@
 
     @media (max-width: 1100px) {
       .hero-grid,
-      .it-grid,
+      .two-col,
       .footer-grid {
         grid-template-columns: 1fr;
       }
@@ -623,69 +659,34 @@
       .cards-grid.inperson {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .issue-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 800px) {
       .hero-grid,
-      .it-grid,
       .cards-grid.online,
       .cards-grid.inperson,
-      .issue-list,
       .support-grid,
-      .footer-grid {
+      .footer-grid,
+      .issue-list,
+      .form-row {
         grid-template-columns: 1fr;
       }
 
-      h1 {
-        font-size: 38px;
-      }
-
-      .section-header h2 {
-        font-size: 34px;
-      }
-
-      .hero-subtitle {
-        font-size: 20px;
-      }
-
-      .hero-grid {
-        padding: 52px 0;
-      }
-
-      .it-section {
-        padding: 24px;
-      }
-
+      h1 { font-size: 38px; }
+      .section-header h2 { font-size: 34px; }
+      .hero-subtitle { font-size: 20px; }
+      .hero-grid { padding: 52px 0; }
+      .it-section { padding: 24px; }
       .hero-panel-inner,
-      .it-panel {
-        padding: 24px;
-      }
-
-      .container {
-        padding: 0 18px;
-      }
-
-      .logo-image {
-        height: 56px;
-      }
-
-      .modal-content {
-        height: 92vh;
-        border-radius: 22px;
-      }
-
-      .modal-header {
-        padding: 16px 16px;
-        align-items: flex-start;
-      }
-
-      .modal-header h3 {
-        font-size: 20px;
-      }
-
-      .modal-embed {
-        min-height: 2300px;
-      }
+      .process-card,
+      .ticket-form,
+      .form-shell-header { padding: 24px; }
+      .container { padding: 0 18px; }
+      .logo-image { height: 56px; }
     }
   </style>
 </head>
@@ -700,16 +701,12 @@
           <p class="hero-text">Welcome to the KW North support page. This hub is designed to help agents quickly book support sessions or log technical issues for follow-up.</p>
 
           <div class="logo-block">
-            <img
-              src="KW_LOGO-removebg-preview.png"
-              alt="KW North Keller Williams Realty"
-              class="logo-image"
-            />
+            <img src="KW_LOGO-removebg-preview.png" alt="KW North Keller Williams Realty" class="logo-image" />
           </div>
 
           <div class="hero-actions">
             <a class="btn btn-primary" href="#bookings">Book Support</a>
-            <a class="btn btn-secondary" href="#it-issue">Log IT Issue</a>
+            <a class="btn btn-primary" href="#it-issue">Log IT Issue</a>
           </div>
         </div>
 
@@ -742,7 +739,7 @@
             <div class="contact-box">
               <strong>Support contact</strong>
               <p>Jason Sylvester • MCTT</p>
-              <p>property.squad@kwsouthafrica.co.za / +27785583986.</p>
+              <p>property.squad@kwsouthafrica.co.za / +27785583986</p>
             </div>
           </div>
         </div>
@@ -875,35 +872,160 @@
       </section>
 
       <section id="it-issue" class="it-section">
-        <div class="it-grid">
-          <div>
-            <div class="section-header" style="margin-bottom: 0; max-width: 100%;">
-              <p class="section-label">Section 2</p>
-              <h2>Submit an IT Issue</h2>
-              <p>Use this option to report technical issues that need to be logged and tracked for follow-up. The ticket form opens in a clean popup so the support hub stays easy to use.</p>
+        <div class="section-header" style="max-width: 100%;">
+          <p class="section-label">Section 2</p>
+          <h2>Log an IT Support Ticket</h2>
+          <p>Complete the support form below so your issue can be recorded, tracked, and followed up properly. This form is built directly into the support hub for a faster, more seamless experience.</p>
+        </div>
+
+        <div class="issue-list">
+          <div class="issue-item">Login or access problems</div>
+          <div class="issue-item">MAPP issues</div>
+          <div class="issue-item">Listing feed errors</div>
+          <div class="issue-item">Google issues</div>
+          <div class="issue-item">Website errors</div>
+          <div class="issue-item">System-related support issues</div>
+        </div>
+
+        <div class="two-col">
+          <div class="form-shell">
+            <div class="form-shell-header">
+              <h3>KW North IT Support Form</h3>
+              <p>Please complete the details below so your ticket can be logged and assigned correctly.</p>
             </div>
 
-            <div class="issue-list">
-              <div class="issue-item">Login or access problems</div>
-              <div class="issue-item">MAPP issues</div>
-              <div class="issue-item">Listing feed errors</div>
-              <div class="issue-item">Google issues</div>
-              <div class="issue-item">Website errors</div>
-              <div class="issue-item">System-related support issues</div>
-            </div>
+            <form class="ticket-form" id="itSupportForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="agentName">Agent Name</label>
+                  <input id="agentName" class="form-input" type="text" placeholder="Enter your full name" required />
+                </div>
+                <div class="form-group">
+                  <label for="agentEmail">Agent Email Address</label>
+                  <input id="agentEmail" class="form-input" type="email" placeholder="Enter your email address" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contactNumber">Contact Number</label>
+                  <input id="contactNumber" class="form-input" type="tel" placeholder="Enter your contact number" />
+                </div>
+                <div class="form-group">
+                  <label for="preferredContact">Preferred Contact Method</label>
+                  <select id="preferredContact" class="form-select">
+                    <option value="">Select an option</option>
+                    <option>Phone Call</option>
+                    <option>WhatsApp</option>
+                    <option>Email</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="category">Category</label>
+                  <select id="category" class="form-select" required>
+                    <option value="">Select a category</option>
+                    <option>Login / Access Problem</option>
+                    <option>MAPP</option>
+                    <option>KW Command</option>
+                    <option>Google / Gmail / Drive</option>
+                    <option>Listing Feed / Portal Issue</option>
+                    <option>Website / Link Issue</option>
+                    <option>Form / Document Issue</option>
+                    <option>Technical Support Other</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="platformSystem">Platform / System</label>
+                  <input id="platformSystem" class="form-input" type="text" placeholder="Example: MAPP, Gmail, KW Command, Website" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="urgency">Urgency</label>
+                  <select id="urgency" class="form-select" required>
+                    <option value="">Select urgency</option>
+                    <option>LOW</option>
+                    <option>MEDIUM</option>
+                    <option>HIGH</option>
+                    <option>CRITICAL</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="issueTitle">Short Issue Title</label>
+                  <input id="issueTitle" class="form-input" type="text" placeholder="Brief title for the issue" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="tryingToDo">What are you trying to do?</label>
+                <textarea id="tryingToDo" class="form-textarea" placeholder="Explain what you were trying to do when the issue happened" required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="alreadyTried">What have you already tried?</label>
+                <textarea id="alreadyTried" class="form-textarea" placeholder="Tell us what steps you already tried before submitting the ticket"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="screenshotUpload">Upload Screenshot</label>
+                <input id="screenshotUpload" class="form-file" type="file" accept=".png,.jpg,.jpeg,.webp,.pdf" />
+                <div class="helper">Upload a screenshot or PDF if it will help explain the issue.</div>
+              </div>
+
+              <div id="itSuccessBox" class="success-box"></div>
+              <div id="itErrorBox" class="error-box"></div>
+
+              <div class="submit-row">
+                <div class="submit-note">Your issue will be logged, assigned a ticket number, and sent to support for follow-up.</div>
+                <button class="btn btn-primary" id="itSubmitBtn" type="submit">Submit Ticket</button>
+              </div>
+            </form>
           </div>
 
-          <div class="it-panel">
-            <div class="warning-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 9v4"></path>
-                <path d="M12 17h.01"></path>
-                <path d="M10.3 3.84 2.62 17a2 2 0 0 0 1.73 3h15.3a2 2 0 0 0 1.73-3L13.7 3.84a2 2 0 0 0-3.4 0Z"></path>
-              </svg>
+          <div class="process-card">
+            <p class="section-label">Ticket Journey</p>
+            <h3>What happens next</h3>
+            <p>Once you submit your IT ticket, it is logged, reviewed, and updated as it moves through the support process. You may also receive an email update when your ticket status changes.</p>
+
+            <div class="step-list">
+              <div class="step-item">
+                <div>
+                  <strong>Step 1 — Ticket Submitted</strong>
+                  <span>Your issue is logged and assigned a unique support reference number.</span>
+                </div>
+                <span class="status-badge">Logged</span>
+              </div>
+
+              <div class="step-item">
+                <div>
+                  <strong>Step 2 — In Progress</strong>
+                  <span>Once support starts working on your issue, the ticket can be marked as In Progress.</span>
+                </div>
+                <span class="status-badge">In Progress</span>
+              </div>
+
+              <div class="step-item">
+                <div>
+                  <strong>Step 3 — Waiting on Support</strong>
+                  <span>If needed, your issue can be escalated to the relevant head office or support team.</span>
+                </div>
+                <span class="status-badge">Escalated</span>
+              </div>
+
+              <div class="step-item">
+                <div>
+                  <strong>Step 4 — Completed or Closed</strong>
+                  <span>When the issue has been resolved, the ticket is marked as completed or closed and you can be notified by email.</span>
+                </div>
+                <span class="status-badge">Resolved</span>
+              </div>
             </div>
-            <h3>Need something tracked?</h3>
-            <p>Log the issue through the IT form so it can be recorded, monitored, and followed up properly.</p>
-            <button class="btn btn-light" type="button" onclick="openTicketPopup()">Log IT Issue</button>
           </div>
         </div>
       </section>
@@ -914,41 +1036,94 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-note">
-          <strong>Support note:</strong> Use booking for live support sessions and the popup IT form for issues that need to be tracked and followed up.
+          <strong>Support note:</strong> Use booking for live support sessions and the IT form for issues that need to be tracked and followed up.
         </div>
         <div class="footer-note">
           <strong>Support hours</strong><br />
-          Monday to Thursday • 09:00 to 15:00 Fridays • 09:00 to 14:00<br /><br />
+          Monday to Thursday • 09:00 to 15:00<br />
+          Friday • 09:00 to 14:00<br /><br />
           Response expectation: booked sessions are handled live, and logged IT issues are followed up as soon as possible during support hours.
         </div>
       </div>
     </div>
   </footer>
 
-  <div class="modal-overlay" id="ticketModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div>
-          <h3>Log Your IT Ticket</h3>
-          <p>Please complete the form below so the issue can be recorded, monitored, and followed up properly.</p>
-        </div>
-        <button class="modal-close" type="button" onclick="closeTicketPopup()">Close</button>
-      </div>
+  <script>
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = error => reject(error);
+      });
+    }
 
-      <div class="modal-body">
-        <iframe
-          class="modal-embed"
-          src="https://docs.google.com/forms/d/e/1FAIpQLSf9TPHXvdwn5oKd6ukkEpnuc_iqdwvCwzkEtV_NyRYRPPnaxA/viewform?embedded=true"
-          width="640"
-          height="2201"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-        >
-          Loading…
-        </iframe>
-      </div>
-    </div>
-  </div>
+    document.getElementById('itSupportForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const submitBtn = document.getElementById('itSubmitBtn');
+      const successBox = document.getElementById('itSuccessBox');
+      const errorBox = document.getElementById('itErrorBox');
+      const screenshotFile = document.getElementById('screenshotUpload').files[0];
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      successBox.style.display = 'none';
+      errorBox.style.display = 'none';
+
+      let screenshotBase64 = '';
+      let screenshotFileName = '';
+      let screenshotMimeType = '';
+
+      try {
+        if (screenshotFile) {
+          screenshotBase64 = await fileToBase64(screenshotFile);
+          screenshotFileName = screenshotFile.name;
+          screenshotMimeType = screenshotFile.type || 'application/octet-stream';
+        }
+
+        const payload = {
+          agentName: document.getElementById('agentName').value.trim(),
+          agentEmail: document.getElementById('agentEmail').value.trim(),
+          contactNumber: document.getElementById('contactNumber').value.trim(),
+          preferredContact: document.getElementById('preferredContact').value,
+          category: document.getElementById('category').value,
+          platformSystem: document.getElementById('platformSystem').value.trim(),
+          urgency: document.getElementById('urgency').value,
+          issueTitle: document.getElementById('issueTitle').value.trim(),
+          tryingToDo: document.getElementById('tryingToDo').value.trim(),
+          alreadyTried: document.getElementById('alreadyTried').value.trim(),
+          screenshotBase64: screenshotBase64,
+          screenshotFileName: screenshotFileName,
+          screenshotMimeType: screenshotMimeType
+        };
+
+        const response = await fetch('YOUR_IT_SUPPORT_SCRIPT_URL_HERE', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          successBox.textContent = 'Thank you. Your IT ticket has been submitted successfully.';
+          successBox.style.display = 'block';
+          document.getElementById('itSupportForm').reset();
+        } else {
+          errorBox.textContent = result.message || 'There was a problem submitting your IT ticket. Please try again.';
+          errorBox.style.display = 'block';
+        }
+      } catch (error) {
+        errorBox.textContent = 'There was a problem submitting your IT ticket. Please try again.';
+        errorBox.style.display = 'block';
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Ticket';
+    });
+  </script>
 </body>
 </html>
